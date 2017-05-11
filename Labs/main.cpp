@@ -1,90 +1,47 @@
 #include <iostream>
 using namespace std;
 
-// UNCOMMENT THESE OUT AS YOU ADD THE FILES
-#include "DynamicArray.hpp"
-#include "Kitten.hpp"
-#include "Button.hpp"
-#include "Fraction.hpp"
+#include "Quizzer.hpp"
 
-const string TEST_DATA[] = {
-	"Aardvark", "Albatross", "Alligator",
-	"Bandicoot", "Bird", "Bison",
-	"Cheetah", "Chipmunk", "Cow",
-	"Elephant", "Emu", "Echidna",
-	"Falcon", "Fox", "Fish",
-	"Gecko", "Goat", "Goose",
-	"Heron", "Horse", "Hyena",
-	"Iguana", "Insect", "Impala",
-	"Jackal", "Jellyfish", "Jaguar"
-};
-
-// UNCOMMENT THSE OUT AS YOU IMPLEMENT THE CLASSES!
-
-void DynamicArrayProgram()
-{
-	
-	DynamicArray arr( 5 );
-
-	for ( int i = 0; i < arr.GetSize(); i++ )
-	{
-	arr.Set( i, TEST_DATA[i] );
-	}
-
-	arr.Display();
-
-}
-
-void KittenProgram()
-{
-	
-	Kitten happyCat( TEST_DATA[2] );
-	happyCat.Display();
-
-	Kitten angryCat( TEST_DATA[4] );
-	angryCat.Display();
-
-	Kitten sadCat( TEST_DATA[6] );
-	sadCat.Display();
-
-	Kitten curiousCat( TEST_DATA[8] );
-	curiousCat.Display();
-	
-}
-
-void ButtonProgram()
-{
-	
-	Button btn;
-	btn.SetText( "Button!" );
-	btn.Draw();
-
-	btn.SetText( "Another Button!" );
-	btn.Draw();
-	
-}
-
-void FractionProgram()
-{
-	
-	Fraction f1, f2, f3;
-
-	f1.Setup( 1, 3 );
-	f2.Setup( 2, 5 );
-
-	f3 = f1 * f2;
-
-	cout << f1 << " * " << f2 << " = " << f3 << endl;
-	
-}
+// In Quizzer, set QUESTIONS_IMPLEMENTED to 1
+// once you're done implementing the Questions classes.
 
 int main()
 {
-	DynamicArrayProgram();
-	KittenProgram();
-	ButtonProgram();
-	FractionProgram();
+	Quizzer quizzer;
 
-	while (true);
+#if QUESTIONS_IMPLEMENTED
+	TrueFalseQuestion tf1, tf2, tf3;
+	tf1.SetQuestionText("Static arrays can be resized at run-time.");
+	tf1.SetCorrectAnswer("false");
+	quizzer.AddTrueFalseQuestion(&tf1);
+
+	tf2.SetQuestionText("Classes can contain member variables and functions.");
+	tf2.SetCorrectAnswer("true");
+	quizzer.AddTrueFalseQuestion(&tf2);
+
+	tf3.SetQuestionText("If you de-reference a nullptr, your program will crash.");
+	tf3.SetCorrectAnswer("true");
+	quizzer.AddTrueFalseQuestion(&tf3);
+
+	MultipleChoiceQuestion mc1, mc2, mc3;
+	mc1.SetQuestionText("Which of the following is the address-of operator?");
+	mc1.SetAnswerChoices("&", "*", "->", "::");
+	mc1.SetCorrectAnswer(0);
+	quizzer.AddMultipleChoiceQuestion(&mc1);
+
+	mc2.SetQuestionText("Dynamic variables are allocated on the...");
+	mc2.SetAnswerChoices("stack", "heap", "queue", "array");
+	mc2.SetCorrectAnswer(1);
+	quizzer.AddMultipleChoiceQuestion(&mc2);
+
+	mc3.SetQuestionText("When a value is being passed into a function call, it is known as a...");
+	mc3.SetAnswerChoices("parameter", "structure", "reference", "argument");
+	mc3.SetCorrectAnswer(3);
+	quizzer.AddMultipleChoiceQuestion(&mc3);
+
+	quizzer.Run();
+#endif
+
 	return 0;
 }
